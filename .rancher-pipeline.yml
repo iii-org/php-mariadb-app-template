@@ -66,7 +66,7 @@ stages:
             db.username: bear
             db.password: bearisbear
             # 使用者初始想要建立的資料庫名稱
-            #db.name: demo
+            db.name: health
     when:
       branch:
         include:
