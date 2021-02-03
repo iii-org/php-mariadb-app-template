@@ -3,7 +3,7 @@ $DB_HOST = "php-mariadb-master-db-mariadb-db-svc";
 $DB_PORT = "3306";
 $DB_USERNAME = "bear";
 $DB_PASSWORD = "bearisbear";
-$DB_NAME = "health";
+$DB_NAME = "demo";
 $DB_SERVER = $DB_HOST.":".$DB_PORT;
 
 define('DB_SERVER', $DB_SERVER);
