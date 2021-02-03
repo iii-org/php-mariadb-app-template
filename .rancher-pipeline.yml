@@ -19,7 +19,7 @@ stages:
         - master
         - develop        
 
-  # 原始碼資安掃描(必須有安裝設定 Checkmarx)
+  # (選擇性) 原始碼資安掃描(必須有安裝設定 Checkmarx)
   - name: Scan source code
     steps:
     - applyAppConfig:
@@ -45,6 +45,33 @@ stages:
         include:
         - checkmarx
 
+  # (選擇性)部屬使用者的資料庫
+  - name: Deploy db
+    steps:
+      - applyAppConfig:
+          catalogTemplate: cattle-global-data:iii-dev-charts3-db
+          version: 0.1.0
+          name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+          #targetNamespace: p-v2nzs-pipeline
+          targetNamespace: ${CICD_GIT_REPO_NAME}
+          answers:
+            # 設定 GitLab 的網址
+            git.host: "gitlab-demo.iiidevops.org"
+            # 這裡是為了告訴要處理的git來源為何
+            git.repoName: ${CICD_GIT_REPO_NAME}
+            git.branch: ${CICD_GIT_BRANCH}
+            db.type: mariadb
+            db.gui: true
+            # 使用者資料庫管理密碼
+            db.username: bear
+            db.password: bearisbear
+            # 使用者初始想要建立的資料庫名稱
+            #db.name: demo
+    when:
+      branch:
+        include:
+          - master
+  
   # 部屬使用者應用(app)
   - name: Deploy app-web
     steps:
@@ -74,31 +101,3 @@ stages:
         include:
         - master
         - develop        
-          
-  # (選擇性)部屬使用者的資料庫
-  - name: Deploy db
-    steps:
-      - applyAppConfig:
-          catalogTemplate: cattle-global-data:iii-dev-charts3-db
-          version: 0.1.0
-          name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
-          #targetNamespace: p-v2nzs-pipeline
-          targetNamespace: ${CICD_GIT_REPO_NAME}
-          answers:
-            # 設定 GitLab 的網址
-            git.host: "gitlab-demo.iiidevops.org"
-            # 這裡是為了告訴要處理的git來源為何
-            git.repoName: ${CICD_GIT_REPO_NAME}
-            git.branch: ${CICD_GIT_BRANCH}
-            db.type: mariadb
-            db.gui: true
-            # 使用者資料庫管理密碼
-            db.username: bear
-            db.password: bearisbear
-            # 使用者初始想要建立的資料庫名稱
-            #db.name: demo
-    when:
-      branch:
-        include:
-          - master
-  
