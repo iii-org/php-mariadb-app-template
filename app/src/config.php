@@ -1,5 +1,5 @@
 <?php
-$DB_HOST = "php-mariadb-master-db-mariadb-db-svc";
+$DB_HOST = "php-mariadb-app-template-master-db-mariadb-db-svc";
 $DB_PORT = "3306";
 $DB_USERNAME = "bear";
 $DB_PASSWORD = "bearisbear";
