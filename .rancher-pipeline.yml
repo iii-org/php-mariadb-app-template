@@ -4,7 +4,7 @@ stages:
     - publishImageConfig:
         dockerfilePath: ./Dockerfile
         buildContext: .
-        tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_REPO_NAME}:${CICD_GIT_BRANCH}-${CICD_GIT_COMMIT}
+        tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_REPO_NAME}:${CICD_GIT_BRANCH}
         pushRemote: true
         registry: harbor-demo.iiidevops.org
       env:
@@ -94,7 +94,7 @@ stages:
           # web參數設定
           web.type: php
           web.image: ${CICD_GIT_REPO_NAME}/${CICD_GIT_REPO_NAME}
-          web.tag: ${CICD_GIT_BRANCH}-${CICD_GIT_COMMIT}
+          web.tag: ${CICD_GIT_BRANCH}
           newman.enabled: false
     when:
       branch:
