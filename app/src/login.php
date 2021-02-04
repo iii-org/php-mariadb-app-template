@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper" style="margin: auto;">
-        <h2 style="text-align:center;">Login(mater)</h2>
+        <h2 style="text-align:center;">Login(mater-2)</h2>
         <p style="text-align:center;">Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
