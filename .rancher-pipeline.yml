@@ -50,9 +50,8 @@ stages:
     steps:
       - applyAppConfig:
           catalogTemplate: cattle-global-data:iii-dev-charts3-db
-          version: 0.1.0
+          version: 0.2.0
           name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
-          #targetNamespace: p-v2nzs-pipeline
           targetNamespace: ${CICD_GIT_REPO_NAME}
           answers:
             # 設定 GitLab 的網址
@@ -77,13 +76,12 @@ stages:
     steps:
     - applyAppConfig:
         catalogTemplate: cattle-global-data:iii-dev-charts3-web
-        version: 0.2.1
-        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-web
+        version: 0.3.0
+        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
         #targetNamespace: p-v2nzs-pipeline
         targetNamespace: ${CICD_GIT_REPO_NAME}
         answers:
           pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-          xip.ip: "10.20.0.77"
           harbor.host: "harbor-demo.iiidevops.org"
           # 基礎pipeline參數
           git.host: "gitlab-demo.iiidevops.org"
@@ -92,10 +90,19 @@ stages:
           git.commitID: "${CICD_GIT_COMMIT}"
           git.repoName: ${CICD_GIT_REPO_NAME}
           # web參數設定
-          web.type: php
+          web.port: 80
           web.image: ${CICD_GIT_REPO_NAME}/${CICD_GIT_REPO_NAME}
           web.tag: ${CICD_GIT_BRANCH}
           newman.enabled: false
+          newman.runnerVersion: 2.0.1
+          webinspect.enabled: true
+          webinspect.runnerVersion: 1.1.0
+          ingress.externalHost: ingress-demo.iiidevops.org
+          db.releaseName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+          db.username: bear
+          db.password: bearisbear
+          # 使用者初始想要建立的資料庫名稱
+          db.name: mytestdb
     when:
       branch:
         include:
