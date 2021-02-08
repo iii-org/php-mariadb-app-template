@@ -5,7 +5,7 @@ COPY ./app/apt-package.txt /opt/
 RUN cd /opt/ && apt-get update && \
     cat apt-package.txt | xargs apt install -y
 
-COPY --from=dockerhub/library/mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 RUN install-php-extensions mysqli
 
 ## Setup working directory
