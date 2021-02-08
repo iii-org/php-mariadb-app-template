@@ -1,4 +1,4 @@
-FROM dockerhub/library/php:7.3-apache
+FROM php:7.3-apache
 # 將使用者需要安裝的清單放到opt資料夾內
 COPY ./app/apt-package.txt /opt/
 # 為了避免發生測試時的下載封鎖 因此先禁用
